@@ -56,8 +56,10 @@ footer{font-size:12px;color:var(--sub);padding:0 20px 48px;line-height:1.7;max-w
 <script>
 const S=window.SHOPS,$=s=>document.querySelector(s);let st={type:'',kid:false,group:false,meal:false,floor:'',sort:'rec'};
 const DESSERT=['카페','카페·빵','빵','크레이프·디저트','아이스크림·디저트'];
-const types=[...new Set(S.map(s=>s.type))];
-$('#types').innerHTML='<span class="chip on" data-t="">전체</span>'+types.map(t=>`<span class="chip" data-t="${t}">${t}</span>`).join('');
+const CAT={'초밥':'일식','닭요리·덮밥':'일식','일식·메밀국수·해산물덮밥':'일식','라면·볶음밥':'일식','우동':'일식','야키소바·다코야키':'일식','돈가스·덮밥':'일식','한식':'한식','중식·군만두':'중식','함박·스테이크':'양식','피자·뷔페':'양식','오므라이스·양식':'양식','파스타':'양식','햄버거':'양식','인도·네팔 카레':'기타(인도 카레)'};
+S.forEach(s=>s.cat=CAT[s.type]||(DESSERT.includes(s.type)?'디저트·카페':'기타(인도 카레)'));
+const types=['일식','한식','중식','양식','디저트·카페','기타(인도 카레)'].filter(t=>S.some(s=>s.cat===t));
+$('#types').innerHTML='<span class="chip on" data-t="">전체</span>'+types.map(t=>`<span class="chip" data-t="${t}">${t} ${S.filter(s=>s.cat===t).length}</span>`).join('');
 document.querySelectorAll('[data-t]').forEach(c=>c.onclick=()=>{st.type=c.dataset.t;document.querySelectorAll('[data-t]').forEach(x=>x.classList.toggle('on',x===c));draw()});
 document.querySelectorAll('[data-f]').forEach(c=>c.onclick=()=>{st[c.dataset.f]=!st[c.dataset.f];c.classList.toggle('on');draw()});
 $('#floor').onchange=e=>{st.floor=e.target.value;draw()};$('#sort').onchange=e=>{st.sort=e.target.value;draw()};
@@ -85,7 +87,7 @@ function card(s,i){
  <h3>대표 메뉴</h3><div class="menu">${menu}</div>
  <h3>후기 요약</h3><div class="rv"><div class="good">👍 ${NA(s.good)}</div><div class="bad">👎 ${NA(s.bad)}</div>${s.tip?`<div style="margin-top:6px">💡 ${s.tip}</div>`:''}</div>
  <div class="links"><a href="${s.gmap}" target="_blank" rel="noopener">구글 지도</a><a class="l2" href="${s.official}" target="_blank" rel="noopener">마크이즈 공식</a>${s.hp&&s.hp!==s.official?`<a class="l2" href="${s.hp}" target="_blank" rel="noopener">가게 홈페이지</a>`:''}</div></div></div>`}
-function draw(){let L=S.filter(s=>(!st.type||s.type===st.type)&&(!st.kid||s.kids>=3)&&(!st.group||s.group>=3)&&(!st.meal||!DESSERT.includes(s.type))&&(!st.floor||s.floor.startsWith(st.floor)));
+function draw(){let L=S.filter(s=>(!st.type||s.cat===st.type)&&(!st.kid||s.kids>=3)&&(!st.group||s.group>=3)&&(!st.meal||!DESSERT.includes(s.type))&&(!st.floor||s.floor.startsWith(st.floor)));
  const f={rec:(a,b)=>score(b)-score(a),rate:(a,b)=>(num(b.tabelog)||0)-(num(a.tabelog)||0)||num(b.yahoo)-num(a.yahoo),cheap:(a,b)=>(a.price||9e9)-(b.price||9e9),exp:(a,b)=>(b.price||-1)-(a.price||-1)}[st.sort];
  L.sort(f);$('#count').textContent=`${L.length}곳 · 카드를 누르면 자세히 펼쳐져요`;$('#list').innerHTML=L.map(card).join('')}
 draw();
