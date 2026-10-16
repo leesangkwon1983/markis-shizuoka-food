@@ -2,9 +2,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>마크이즈 시즈오카 식당 고르기</title>
 <meta name="robots" content="noindex">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
 :root{--bg:#f5f5f3;--card:#fff;--ink:#1d1d1f;--sub:#6e6e73;--acc:#c2410c;--kid:#15803d;--line:#e5e5e2;--soft:#f2f2ef}
-*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;letter-spacing:-.01em;padding-bottom:env(safe-area-inset-bottom)}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}body{margin:0;font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;letter-spacing:-.01em;padding-bottom:env(safe-area-inset-bottom)}
 header{padding:28px 20px 12px;max-width:640px;margin:0 auto}h1{font-size:24px;font-weight:700;margin:0 0 8px;letter-spacing:-.02em}header p{margin:0 0 4px;color:var(--sub);font-size:14px}
 .sum{display:inline-block;font-size:13px;font-weight:600;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 12px;margin-bottom:10px}
 .tips{max-width:600px;margin:8px 16px 16px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;font-size:14px}
@@ -36,6 +37,20 @@ h3{font-size:14px;font-weight:700;margin:18px 0 8px}.rv{font-size:14px;line-heig
 .links a.l2{background:var(--card);color:var(--ink);border:1px solid var(--line)}
 .na{color:#a16207}
 footer{font-size:12px;color:var(--sub);padding:0 20px 48px;line-height:1.7;max-width:640px;margin:0 auto}
+
+header{position:relative;max-width:none;margin:0;padding:44px 22px 26px;color:#fff;background:linear-gradient(160deg,rgba(28,25,23,.25),rgba(28,25,23,.78)),url(img/5968_0.jpg) center/cover;border-radius:0 0 28px 28px}
+header h1{font-size:27px;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.3)}header p{color:rgba(255,255,255,.88)}header .na{color:#fde68a}
+.sum{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.35);color:#fff;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.tips{box-shadow:0 6px 24px rgba(0,0,0,.06);border:none;margin-top:-6px;position:relative}
+.tips h2::before{content:"💡 "}
+.card{border:none;box-shadow:0 2px 10px rgba(0,0,0,.05),0 8px 28px rgba(0,0,0,.05);border-radius:22px}
+.top{display:block;padding:0}.thumb{width:100%;height:190px;border-radius:0;display:block}
+.t{padding:14px 16px 16px}.t h2{font-size:18px}
+.cat{display:inline-block;font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:999px;margin-bottom:6px;color:var(--c);background:color-mix(in srgb,var(--c) 12%,#fff)}
+.chip{box-shadow:0 1px 2px rgba(0,0,0,.04);font-weight:500;transition:all .15s}.chip.on{box-shadow:0 4px 12px rgba(0,0,0,.18)}
+.chip[data-t]{--c:#1d1d1f}.chip[data-t].on{background:var(--c);border-color:var(--c)}
+.lab{flex:none;align-self:center;font-size:12px;font-weight:700;color:var(--sub);width:30px}
+.chip[data-fl].on{background:#0f766e;border-color:#0f766e}
 </style></head><body>
 <header><h1>마크이즈 시즈오카 식당 고르기</h1>
 <div class="sum">11/14(토) 점심 · 8명 · 각자 먹고 다시 모이기</div>
@@ -45,24 +60,29 @@ footer{font-size:12px;color:var(--sub);padding:0 20px 48px;line-height:1.7;max-w
 <li>사와야카는 <b>10시부터 휴대폰(LINE)으로 번호표</b>를 받을 수 있어요. 가실 분은 대기 상황을 먼저 확인하세요.</li>
 <li>모이는 곳 제안: <b>3층 푸드코트</b>. 주차는 3시간 무료예요(타베로그·블로그).</li></ul></div>
 <div class="bar">
-<div class="row" id="types"></div>
-<div class="row" style="align-items:center">
-<span class="chip" data-f="kid">👶 아이 추천만</span><span class="chip" data-f="group">👨‍👩‍👧‍👦 8명 한자리</span><span class="chip" data-f="meal">🍚 식사만</span>
-<select id="floor"><option value="">층 전체</option><option value="3층 식당가">3층 식당가</option><option value="3층 푸드코트">3층 푸드코트</option><option value="1층">1층 카페</option></select>
-<select id="sort"><option value="rec">추천순</option><option value="rate">평점순</option><option value="cheap">가격 낮은순</option><option value="exp">가격 높은순</option></select></div></div>
+<div class="row"><span class="lab">종류</span><span id="types" style="display:contents"></span></div>
+<div class="row"><span class="lab">위치</span><span id="floors" style="display:contents"></span></div>
+<div class="row" style="align-items:center"><span class="lab">조건</span>
+<span class="chip" data-f="kid">👶 아이 추천만</span><span class="chip" data-f="group">👨‍👩‍👧‍👦 8명 한자리</span>
+
+</div>
+<div class="row"><span class="lab">정렬</span><span class="chip on" data-s="rec">추천순</span><span class="chip" data-s="rate">평점순</span><span class="chip" data-s="cheap">낮은 가격순</span><span class="chip" data-s="exp">높은 가격순</span></div></div>
 <div class="count" id="count"></div><div class="list" id="list"></div>
 <footer>출처: 마크이즈 시즈오카 공식 매장 정보, 각 가게 공식 홈페이지, 타베로그, 야후 지도(사용자가 올린 메뉴·사진·후기). 사진 아래에 출처를 적었어요. 사용자 게시 가격은 올린 시점에 따라 지금과 다를 수 있어요. 구글 지도 평점은 이번에 직접 확인하지 못해 모두 <span class="na">확인 필요</span>로 두었어요. 각 카드의 구글 지도 버튼으로 바로 보실 수 있어요.</footer>
 <script src="data.js"></script>
 <script>
-const S=window.SHOPS,$=s=>document.querySelector(s);let st={type:'',kid:false,group:false,meal:false,floor:'',sort:'rec'};
+const S=window.SHOPS,$=s=>document.querySelector(s);let st={type:'',kid:false,group:false,floor:'',sort:'rec'};
 const DESSERT=['카페','카페·빵','빵','크레이프·디저트','아이스크림·디저트'];
 const CAT={'초밥':'일식','닭요리·덮밥':'일식','일식·메밀국수·해산물덮밥':'일식','라면·볶음밥':'일식','우동':'일식','야키소바·다코야키':'일식','돈가스·덮밥':'일식','한식':'한식','중식·군만두':'중식','함박·스테이크':'양식','피자·뷔페':'양식','오므라이스·양식':'양식','파스타':'양식','햄버거':'양식','인도·네팔 카레':'기타(인도 카레)'};
 S.forEach(s=>s.cat=CAT[s.type]||(DESSERT.includes(s.type)?'디저트·카페':'기타(인도 카레)'));
+const COL={'일식':'#c2410c','한식':'#be123c','중식':'#b45309','양식':'#1d4ed8','디저트·카페':'#7c3aed','기타(인도 카레)':'#047857'};
 const types=['일식','한식','중식','양식','디저트·카페','기타(인도 카레)'].filter(t=>S.some(s=>s.cat===t));
-$('#types').innerHTML='<span class="chip on" data-t="">전체</span>'+types.map(t=>`<span class="chip" data-t="${t}">${t} ${S.filter(s=>s.cat===t).length}</span>`).join('');
+$('#types').innerHTML='<span class="chip on" data-t="">전체</span>'+types.map(t=>`<span class="chip" data-t="${t}" style="--c:${COL[t]}">${t} ${S.filter(s=>s.cat===t).length}</span>`).join('');
 document.querySelectorAll('[data-t]').forEach(c=>c.onclick=()=>{st.type=c.dataset.t;document.querySelectorAll('[data-t]').forEach(x=>x.classList.toggle('on',x===c));draw()});
 document.querySelectorAll('[data-f]').forEach(c=>c.onclick=()=>{st[c.dataset.f]=!st[c.dataset.f];c.classList.toggle('on');draw()});
-$('#floor').onchange=e=>{st.floor=e.target.value;draw()};$('#sort').onchange=e=>{st.sort=e.target.value;draw()};
+const FL=[['','전체'],['1층','1층 카페·빵'],['3층','3층 전체'],['3층 식당가','3층 식당가'],['3층 푸드코트','3층 푸드코트']];
+$('#floors').innerHTML=FL.map(([v,l])=>`<span class="chip${v?'':' on'}" data-fl="${v}">${l}${v?' '+S.filter(s=>s.floor.startsWith(v)).length:''}</span>`).join('');
+document.querySelectorAll('[data-fl]').forEach(c=>c.onclick=()=>{st.floor=c.dataset.fl;document.querySelectorAll('[data-fl]').forEach(x=>x.classList.toggle('on',x===c));draw()});document.querySelectorAll('[data-s]').forEach(c=>c.onclick=()=>{st.sort=c.dataset.s;document.querySelectorAll('[data-s]').forEach(x=>x.classList.toggle('on',x===c));draw()});
 const NA=v=>!v||v==='확인 필요'?'<span class="na">확인 필요</span>':v;
 const won=k=>k?`약 ${k.toLocaleString()}원`:'';
 const num=r=>{const m=(r||'').match(/^([\d.]+)/);return m?parseFloat(m[1]):0};
@@ -74,7 +94,7 @@ function card(s,i){
  const menu=s.menu.length?s.menu.map(x=>`<div class="mi">${x.img?`<img loading="lazy" src="img/${x.img}" alt="">`:'<div class="ph">사진<br>없음</div>'}<div><div class="n">${x.n}</div><div class="p">${x.yen?x.yen.toLocaleString()+'엔 · '+won(x.krw):'뷔페 요금에 포함'}</div>${x.note?`<div class="s">${x.note}</div>`:''}<div class="s">${src(x)}</div></div></div>`).join(''):'<div class="na">대표 메뉴와 가격: 확인 필요</div>';
  return `<div class="card" id="c${s.id}"><div class="top" onclick="this.parentNode.classList.toggle('open')">
  ${ph?`<img class="thumb" loading="lazy" src="${ph}" alt="">`:'<div class="thumb"></div>'}
- <div class="t"><h2>${s.ko} <span class="jp">(${s.jp})</span></h2>
+ <div class="t"><span class="cat" style="--c:${COL[s.cat]}">${s.cat}</span><h2>${s.ko} <span class="jp">(${s.jp})</span></h2>
  <div class="meta">${s.type} · ${s.floor}</div>
  <div class="meta">${s.price?'대표 '+s.price.toLocaleString()+'엔 ('+won(Math.round(s.price*8.5/100)*100)+')':'가격 확인 필요'}</div>
  <div class="badges">${s.kids>=3?'<span class="b kid">👶 아이 추천</span>':''}${s.group>=3?'<span class="b g">8명 한자리 쉬움</span>':''}
@@ -87,7 +107,7 @@ function card(s,i){
  <h3>대표 메뉴</h3><div class="menu">${menu}</div>
  <h3>후기 요약</h3><div class="rv"><div class="good">👍 ${NA(s.good)}</div><div class="bad">👎 ${NA(s.bad)}</div>${s.tip?`<div style="margin-top:6px">💡 ${s.tip}</div>`:''}</div>
  <div class="links"><a href="${s.gmap}" target="_blank" rel="noopener">구글 지도</a><a class="l2" href="${s.official}" target="_blank" rel="noopener">마크이즈 공식</a>${s.hp&&s.hp!==s.official?`<a class="l2" href="${s.hp}" target="_blank" rel="noopener">가게 홈페이지</a>`:''}</div></div></div>`}
-function draw(){let L=S.filter(s=>(!st.type||s.cat===st.type)&&(!st.kid||s.kids>=3)&&(!st.group||s.group>=3)&&(!st.meal||!DESSERT.includes(s.type))&&(!st.floor||s.floor.startsWith(st.floor)));
+function draw(){let L=S.filter(s=>(!st.type||s.cat===st.type)&&(!st.kid||s.kids>=3)&&(!st.group||s.group>=3)&&(!st.floor||s.floor.startsWith(st.floor)));
  const f={rec:(a,b)=>score(b)-score(a),rate:(a,b)=>(num(b.tabelog)||0)-(num(a.tabelog)||0)||num(b.yahoo)-num(a.yahoo),cheap:(a,b)=>(a.price||9e9)-(b.price||9e9),exp:(a,b)=>(b.price||-1)-(a.price||-1)}[st.sort];
  L.sort(f);$('#count').textContent=`${L.length}곳 · 카드를 누르면 자세히 펼쳐져요`;$('#list').innerHTML=L.map(card).join('')}
 draw();
