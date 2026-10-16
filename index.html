@@ -96,11 +96,11 @@ function card(s,i){
  <div class="badges">${s.kids>=3?'<span class="b kid">👶 아이 추천</span>':''}${s.group>=3?'<span class="b g">8명 한자리 쉬움</span>':''}
  ${num(s.tabelog)?`<span class="b">타베로그 ${num(s.tabelog)}</span>`:''}${num(s.yahoo)?`<span class="b">야후 ${num(s.yahoo)}</span>`:''}${num(s.google)?`<span class="b">구글 ${num(s.google)}</span>`:''}</div></div></div>
  <div class="d">${s.photos.length>1?`<div class="gal">${s.photos.map(p=>`<img loading="lazy" src="img/${p}">`).join('')}</div><div class="s" style="font-size:10.5px;color:#999;margin:-6px 0 8px">매장 사진: 마크이즈 공식</div>`:''}
- <table><tr><td>영업시간</td><td>${s.hours}</td></tr><tr><td>예약</td><td>${NA(s.resv)}</td></tr><tr><td>좌석</td><td>${NA(s.seats)}</td></tr>
- <tr><td>아이 동반</td><td>${stars(s.kids)} ${NA(s.kidinfo)}</td></tr><tr><td>8명 단체</td><td>${stars(s.group)}</td></tr>
- <tr><td>결제</td><td>${NA(s.pay)}</td></tr><tr><td>대기·혼잡</td><td>${NA(s.wait)}</td></tr>
+ <table><tr><td>영업시간</td><td>${s.hours}</td></tr>${s.resv&&s.resv!=='-'?`<tr><td>예약</td><td>${NA(s.resv)}</td></tr>`:''}${s.seats&&s.seats!=='-'?`<tr><td>좌석</td><td>${NA(s.seats)}</td></tr>`:''}
+ <tr><td>아이 동반</td><td>${stars(s.kids)} ${s.kidinfo&&s.kidinfo!=='-'?s.kidinfo:''}</td></tr><tr><td>8명 단체</td><td>${stars(s.group)}</td></tr>
+ ${s.pay&&s.pay!=='-'?`<tr><td>결제</td><td>${NA(s.pay)}</td></tr>`:''}${s.wait&&s.wait!=='-'?`<tr><td>대기·혼잡</td><td>${NA(s.wait)}</td></tr>`:''}
  <tr><td>평점</td><td>구글 ${NA(s.google)}<br>타베로그 ${NA(s.tabelog)}<br>야후 지도 ${NA(s.yahoo)}</td></tr></table>
- <h3>대표 메뉴</h3><div class="menu">${menu}</div>
+ ${s.menu.length?`<h3>대표 메뉴</h3><div class="menu">${menu}</div>`:''}
  <h3>후기 요약</h3><div class="rv"><div class="good">👍 ${NA(s.good)}</div>${s.bad&&s.bad!=='-'?`<div class="bad">👎 ${NA(s.bad)}</div>`:''}${s.tip?`<div style="margin-top:6px">💡 ${s.tip}</div>`:''}</div>
  <div class="links"><a href="${s.gmap}" target="_blank" rel="noopener">구글 지도</a><a class="l2" href="${s.official}" target="_blank" rel="noopener">마크이즈 공식</a>${s.hp&&s.hp!==s.official?`<a class="l2" href="${s.hp}" target="_blank" rel="noopener">가게 홈페이지</a>`:''}</div></div></div>`}
 function draw(){let L=S.filter(s=>(!st.type||s.cat===st.type)&&(!st.kid||s.kids>=3)&&(!st.group||s.group>=3)&&(!st.floor||s.floor.startsWith(st.floor)));
