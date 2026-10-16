@@ -73,11 +73,11 @@ const CAT={'초밥':'일식','닭요리·덮밥':'일식','일식·메밀국수�
 S.forEach(s=>s.cat=CAT[s.type]||(DESSERT.includes(s.type)?'디저트·카페':'양식'));
 const COL={'일식':'#c2410c','한식':'#be123c','중식':'#b45309','양식':'#1d4ed8','디저트·카페':'#7c3aed'};
 const types=['일식','한식','중식','양식','디저트·카페'].filter(t=>S.some(s=>s.cat===t));
-$('#types').innerHTML='<span class="on" data-t="">전체</span>'+types.map(t=>`<span data-t="${t}">${t} ${S.filter(s=>s.cat===t).length}</span>`).join('');
+$('#types').innerHTML='<span class="on" data-t="">전체</span>'+types.map(t=>`<span data-t="${t}">${t}(${S.filter(s=>s.cat===t).length})</span>`).join('');
 document.querySelectorAll('[data-t]').forEach(c=>c.onclick=()=>{st.type=c.dataset.t;document.querySelectorAll('[data-t]').forEach(x=>x.classList.toggle('on',x===c));draw()});
 document.querySelectorAll('[data-f]').forEach(c=>c.onclick=()=>{st[c.dataset.f]=!st[c.dataset.f];c.classList.toggle('on');draw()});
-const FL=[['','전체'],['1층','1층 카페·빵'],['3층 식당가','3층 식당가'],['3층 푸드코트','3층 푸드코트']];
-$('#floors').innerHTML=FL.map(([v,l])=>`<span class="${v?'':'on'}" data-fl="${v}">${l}${v?' '+S.filter(s=>s.floor.startsWith(v)).length:''}</span>`).join('');
+const FL=[['','전체'],['1층','1층 카페'],['3층 식당가','3층 식당가'],['3층 푸드코트','3층 푸드코트']];
+$('#floors').innerHTML=FL.map(([v,l])=>`<span class="${v?'':'on'}" data-fl="${v}">${l}${v?'('+S.filter(s=>s.floor.startsWith(v)).length+')':''}</span>`).join('');
 document.querySelectorAll('[data-fl]').forEach(c=>c.onclick=()=>{st.floor=c.dataset.fl;document.querySelectorAll('[data-fl]').forEach(x=>x.classList.toggle('on',x===c));draw()});document.querySelectorAll('[data-s]').forEach(c=>c.onclick=()=>{st.sort=c.dataset.s;document.querySelectorAll('[data-s]').forEach(x=>x.classList.toggle('on',x===c));draw()});
 const NA=v=>!v||v==='확인 필요'?'<span class="na">확인 필요</span>':v;
 const won=k=>k?`약 ${k.toLocaleString()}원`:'';
