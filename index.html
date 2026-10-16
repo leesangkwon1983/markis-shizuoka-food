@@ -51,7 +51,8 @@ header h1{font-size:27px;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.3)}header 
 .chip[data-t]{--c:#1d1d1f}.chip[data-t].on{background:var(--c);border-color:var(--c)}
 .lab{flex:none;align-self:center;font-size:12px;font-weight:700;color:var(--sub);width:30px}
 
-.seg{flex:none;display:inline-flex;background:#e8e8e5;border-radius:999px;padding:3px}.seg span{white-space:nowrap;padding:5px 13px;border-radius:999px;font-size:13px;color:var(--sub);cursor:pointer;font-weight:600;transition:all .15s}.seg span.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.15)}.sep{flex:none;width:1px;height:20px;background:var(--line);align-self:center}
+.seg{flex:none;display:inline-flex;background:#e8e8e5;border-radius:999px;padding:3px}.seg span{white-space:nowrap;padding:5px 11px;border-radius:999px;font-size:13px;color:var(--sub);cursor:pointer;font-weight:600;transition:all .15s}.seg span.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.15)}.sep{flex:none;width:1px;height:20px;background:var(--line);align-self:center}
+@media(max-width:420px){.seg span{padding:5px 8px;font-size:12.5px}}
 </style></head><body>
 <header><h1>마크이즈 시즈오카 식당 고르기</h1>
 <div class="sum">11/14(토) 점심 · 8명 · 각자 먹고 다시 모이기</div>
@@ -61,7 +62,7 @@ header h1{font-size:27px;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.3)}header 
 <li>사와야카는 <b>10시부터 휴대폰(LINE)으로 번호표</b>를 받을 수 있어요. 가실 분은 대기 상황을 먼저 확인하세요.</li>
 <li>모이는 곳 제안: <b>3층 푸드코트</b>. 주차는 3시간 무료예요(타베로그·블로그).</li></ul></div>
 <div class="bar">
-<div class="row"><span class="lab">종류</span><span id="types" style="display:contents"></span></div>
+<div class="row"><span class="lab">종류</span><span id="types" class="seg"></span></div>
 <div class="row"><span class="lab">위치</span><span id="floors" class="seg"></span></div>
 <div class="row"><span class="lab">정렬</span><span class="seg"><span class="on" data-s="rec">추천순</span><span data-s="rate">평점순</span></span><span class="sep"></span><span class="chip" data-f="kid">아이 추천</span><span class="chip" data-f="group">8명 자리</span></div></div>
 <div class="count" id="count"></div><div class="list" id="list"></div>
@@ -74,7 +75,7 @@ const CAT={'초밥':'일식','닭요리·덮밥':'일식','일식·메밀국수�
 S.forEach(s=>s.cat=CAT[s.type]||(DESSERT.includes(s.type)?'디저트·카페':'양식'));
 const COL={'일식':'#c2410c','한식':'#be123c','중식':'#b45309','양식':'#1d4ed8','디저트·카페':'#7c3aed'};
 const types=['일식','한식','중식','양식','디저트·카페'].filter(t=>S.some(s=>s.cat===t));
-$('#types').innerHTML='<span class="chip on" data-t="">전체</span>'+types.map(t=>`<span class="chip" data-t="${t}" style="--c:${COL[t]}">${t} ${S.filter(s=>s.cat===t).length}</span>`).join('');
+$('#types').innerHTML='<span class="on" data-t="">전체</span>'+types.map(t=>`<span data-t="${t}">${t} ${S.filter(s=>s.cat===t).length}</span>`).join('');
 document.querySelectorAll('[data-t]').forEach(c=>c.onclick=()=>{st.type=c.dataset.t;document.querySelectorAll('[data-t]').forEach(x=>x.classList.toggle('on',x===c));draw()});
 document.querySelectorAll('[data-f]').forEach(c=>c.onclick=()=>{st[c.dataset.f]=!st[c.dataset.f];c.classList.toggle('on');draw()});
 const FL=[['','전체'],['1층','1층 카페·빵'],['3층 식당가','3층 식당가'],['3층 푸드코트','3층 푸드코트']];
