@@ -60,17 +60,17 @@ header{text-align:center}header h1{font-size:clamp(25px,7.4vw,32px);word-break:k
 .ov-k{font-size:11px;font-weight:800;letter-spacing:.14em;color:var(--acc)}
 .ov-hd h2{margin:1px 0 0;font-size:19px;font-weight:800;letter-spacing:-.02em}
 .ov-hd p{margin:2px 0 0;font-size:12.5px;color:var(--sub)}
-.ov-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:8px}
+.ov-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr;gap:8px}@media(min-width:700px){.ov-list{grid-template-columns:repeat(2,1fr)}}@media(min-width:1200px){.ov-list{grid-template-columns:repeat(3,1fr)}}
 .ov-list li{display:block}
-.ov-i{display:flex;align-items:center;gap:11px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:8px 12px 8px 6px;color:var(--ink);text-decoration:none;-webkit-tap-highlight-color:transparent;transition:transform .12s,box-shadow .15s;min-height:58px}
+.ov-i{display:flex;align-items:center;gap:11px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:8px 12px 8px 6px;color:var(--ink);text-decoration:none;-webkit-tap-highlight-color:transparent;transition:transform .12s,box-shadow .15s;height:62px}
 .ov-i:active{transform:scale(.985)}@media(hover:hover){.ov-i:hover{box-shadow:0 4px 14px rgba(0,0,0,.08)}}
 .ov-i .rn{flex:none;width:26px;text-align:center;font-weight:800;font-size:15px;color:var(--c)}
 .ov-i img,.ov-i .ni{flex:none;width:56px;height:42px;object-fit:cover;border-radius:9px;background:var(--soft)}
-.ov-i .nm{flex:1;min-width:0;font-weight:700;font-size:15px;line-height:1.3;word-break:keep-all;overflow-wrap:anywhere}
-.ov-i .nm small{display:block;font-weight:500;color:var(--sub);font-size:12.5px;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ov-i .nm{flex:1;min-width:0;line-height:1.3}.ov-i .nt{display:block;font-weight:700;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ov-i .nm small{display:block;font-weight:500;color:var(--sub);font-size:12.5px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ov-i .sc{flex:none;text-align:right;font-weight:800;font-size:15px;color:var(--ink);min-width:48px}
 .ov-i .sc em{display:block;font-style:normal;font-size:10.5px;font-weight:700;color:var(--sub);letter-spacing:0}
-.ov-i .sc.no{font-size:12px;color:#aaa;font-weight:600}
+.ov-i .sc.no{color:#aaa}
 .ov-more{display:block;width:100%;margin:8px 0 0;padding:11px;border:1px dashed #cfcfca;border-radius:14px;background:transparent;font:inherit;font-size:14px;font-weight:600;color:var(--ink);cursor:pointer;-webkit-tap-highlight-color:transparent}
 .ov.fold .ov-list li:nth-child(n+6){display:none}
 @media(min-width:720px){.ov.fold .ov-list li:nth-child(n+6){display:block}.ov-more{display:none}}
@@ -89,7 +89,7 @@ header{text-align:center}header h1{font-size:clamp(25px,7.4vw,32px);word-break:k
 <div class="bar">
 <div class="row"><span class="lab">종류</span><span id="types" class="seg"></span></div>
 <div class="row"><span class="lab">위치</span><span id="floors" class="seg"></span></div>
-<div class="row"><span class="lab">정렬</span><span class="seg"><span class="on" data-s="rec">추천순</span><span data-s="rate">평점순</span></span><span class="sep"></span><span class="chip" data-f="kid">아이 추천</span><span class="chip" data-f="group">8명 자리</span></div></div>
+<div class="row"><span class="lab">정렬</span><span class="seg"><span class="on" data-s="rec">추천순</span><span data-s="rate">평점순</span></span><span class="sep"></span><span class="chip" data-f="kid">아이 추천</span></div></div>
 <section class="ov fold" id="ov" aria-label="한눈에 보기"><div class="ov-hd"><div><div class="ov-k">AT A GLANCE</div><h2>한눈에 보기</h2><p id="ovsub">누르면 해당 식당 카드로 이동해요</p></div></div><ol class="ov-list" id="ovlist"></ol><button type="button" class="ov-more" id="ovmore"></button></section>
 <div class="count" id="count"></div><div class="list" id="list"></div>
 <footer>출처: 마크이즈 시즈오카 공식 매장 정보, 각 가게 공식 홈페이지, 타베로그, 야후 지도(사용자가 올린 메뉴·사진·후기). 사진 아래에 출처를 적었어요. 사용자 게시 가격은 올린 시점에 따라 지금과 다를 수 있어요. 구글 평점은 각 가게 구글 지도 페이지 기준(10/16). 각 카드의 구글 지도 버튼으로 바로 보실 수 있어요.</footer>
@@ -135,10 +135,13 @@ function draw(){let L=S.filter(s=>(!st.type||s.cat===st.type)&&(!st.kid||s.kids>
  const f={rec:(a,b)=>score(b)-score(a),rate:(a,b)=>(num(b.tabelog)||0)-(num(a.tabelog)||0)||num(b.yahoo)-num(a.yahoo),cheap:(a,b)=>(a.price||9e9)-(b.price||9e9),exp:(a,b)=>(b.price||-1)-(a.price||-1)}[st.sort];
  L.sort(f);$('#count').textContent=`${L.length}곳 · 카드를 누르면 자세히 펼쳐져요`;$('#list').innerHTML=L.map(card).join('');ov(L)}
 /* 한눈에 보기: 지금 카드 목록과 같은 순서·같은 목록 */
+/* 타일용 짧은 이름: 괄호 설명만 뺌(카드 이름은 그대로) */
+const TSHORT={'11216':'사와야카','5971':'타마고노호시'};
+function tname(s){return TSHORT[s.id]||s.ko.replace(/\s*\([^)]*\)/g,'').trim()}
 function thumbOf(s){return s.photos[0]?`img/${s.photos[0]}`:(s.menu.find(x=>x.img)?'img/'+s.menu.find(x=>x.img).img:'')}
 function ov(L){const rate=st.sort==='rate';
  $('#ovlist').innerHTML=L.length?L.map((s,i)=>{const ph=thumbOf(s);const v=rate?num(s.tabelog):num(s.google);
-  return `<li><a class="ov-i" href="#c${s.id}" data-id="${s.id}" style="--c:${COL[s.cat]}"><span class="rn">${i+1}</span>${ph?`<img src="${ph}" alt="" loading="lazy">`:'<span class="ni"></span>'}<span class="nm">${s.ko}<small>${s.type} · ${s.floor}${s.kids>=3?' · 👶':''}${s.group>=3?' · 8명 자리':''}</small></span>${v?`<span class="sc">${v}<em>${rate?'타베로그':'구글 ★'}</em></span>`:`<span class="sc no">${rate?'타베로그<br>점수 없음':'-'}</span>`}</a></li>`}).join(''):'';
+  return `<li><a class="ov-i" href="#c${s.id}" data-id="${s.id}" style="--c:${COL[s.cat]}"><span class="rn">${i+1}</span>${ph?`<img src="${ph}" alt="" loading="lazy">`:'<span class="ni"></span>'}<span class="nm"><b class="nt">${tname(s)}</b><small>${s.type.split('·')[0]} · ${s.floor}${s.kids>=3?' · 👶':''}</small></span><span class="sc${v?'':' no'}">${v||'없음'}<em>${rate?'타베로그':'구글평점'}</em></span></a></li>`}).join(''):'';
  if(!L.length)$('#ovlist').innerHTML='<li class="ov-empty">조건에 맞는 식당이 없어요</li>';
  $('#ovsub').textContent=`${L.length}곳 · ${rate?'오른쪽: 타베로그 점수':'오른쪽: 구글 평점'} · 누르면 카드로 이동`;
  const more=$('#ovmore'),fold=$('#ov').classList.contains('fold');more.hidden=L.length<=5;more.textContent=fold?`전체 ${L.length}곳 펼치기 ▾`:'접기 ▴'}
