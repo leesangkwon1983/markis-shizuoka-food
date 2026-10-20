@@ -54,6 +54,33 @@ header h1{font-size:27px;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.3)}header 
 .seg{flex:none;display:inline-flex;background:#e8e8e5;border-radius:999px;padding:3px}.seg span{white-space:nowrap;padding:5px 11px;border-radius:999px;font-size:13px;color:var(--sub);cursor:pointer;font-weight:600;transition:all .15s}.seg span.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.15)}.sep{flex:none;width:1px;height:20px;background:var(--line);align-self:center}
 .seg{flex-wrap:wrap;min-width:0}@media(max-width:420px){.seg span{padding:5px 7px;font-size:12px}.row{gap:6px}.chip[data-f]{padding:5px 10px;font-size:12.5px}}
 header{text-align:center}header h1{font-size:clamp(25px,7.4vw,32px);word-break:keep-all}@media(min-width:640px){header h1{font-size:38px}}
+/* 한눈에 보기 (2026-10-20) */
+.ov{max-width:1080px;margin:0 auto;padding:16px 16px 4px}
+.ov-hd{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin:0 2px 10px}
+.ov-k{font-size:11px;font-weight:800;letter-spacing:.14em;color:var(--acc)}
+.ov-hd h2{margin:1px 0 0;font-size:19px;font-weight:800;letter-spacing:-.02em}
+.ov-hd p{margin:2px 0 0;font-size:12.5px;color:var(--sub)}
+.ov-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:8px}
+.ov-list li{display:block}
+.ov-i{display:flex;align-items:center;gap:11px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:8px 12px 8px 6px;color:var(--ink);text-decoration:none;-webkit-tap-highlight-color:transparent;transition:transform .12s,box-shadow .15s;min-height:58px}
+.ov-i:active{transform:scale(.985)}@media(hover:hover){.ov-i:hover{box-shadow:0 4px 14px rgba(0,0,0,.08)}}
+.ov-i .rn{flex:none;width:26px;text-align:center;font-weight:800;font-size:15px;color:var(--c)}
+.ov-i img,.ov-i .ni{flex:none;width:56px;height:42px;object-fit:cover;border-radius:9px;background:var(--soft)}
+.ov-i .nm{flex:1;min-width:0;font-weight:700;font-size:15px;line-height:1.3;word-break:keep-all;overflow-wrap:anywhere}
+.ov-i .nm small{display:block;font-weight:500;color:var(--sub);font-size:12.5px;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ov-i .sc{flex:none;text-align:right;font-weight:800;font-size:15px;color:var(--ink);min-width:48px}
+.ov-i .sc em{display:block;font-style:normal;font-size:10.5px;font-weight:700;color:var(--sub);letter-spacing:0}
+.ov-i .sc.no{font-size:12px;color:#aaa;font-weight:600}
+.ov-more{display:block;width:100%;margin:8px 0 0;padding:11px;border:1px dashed #cfcfca;border-radius:14px;background:transparent;font:inherit;font-size:14px;font-weight:600;color:var(--ink);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.ov.fold .ov-list li:nth-child(n+6){display:none}
+@media(min-width:720px){.ov.fold .ov-list li:nth-child(n+6){display:block}.ov-more{display:none}}
+.ov-empty{font-size:14px;color:var(--sub);padding:10px 2px}
+.card{scroll-margin-top:var(--barh,140px)}
+.card.flash{animation:cflash 1.8s ease-out}
+@keyframes cflash{0%,55%{box-shadow:0 0 0 4px var(--c,#c2410c),0 10px 30px rgba(0,0,0,.14)}100%{box-shadow:0 2px 10px rgba(0,0,0,.05),0 8px 28px rgba(0,0,0,.05)}}
+.totop{position:fixed;right:14px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:6;border:none;border-radius:999px;background:var(--ink);color:#fff;font:inherit;font-size:13px;font-weight:700;padding:10px 14px;box-shadow:0 6px 18px rgba(0,0,0,.22);cursor:pointer;opacity:0;transform:translateY(10px);pointer-events:none;transition:all .2s}
+.totop.show{opacity:1;transform:none;pointer-events:auto}
+@media(prefers-reduced-motion:reduce){.card.flash{animation-duration:2.4s}.ov-i,.totop{transition:none}}
 </style></head><body>
 <header><h1>마크이즈 시즈오카 식당 안내</h1>
 <div class="sum">11/14(토) 점심</div>
@@ -63,6 +90,7 @@ header{text-align:center}header h1{font-size:clamp(25px,7.4vw,32px);word-break:k
 <div class="row"><span class="lab">종류</span><span id="types" class="seg"></span></div>
 <div class="row"><span class="lab">위치</span><span id="floors" class="seg"></span></div>
 <div class="row"><span class="lab">정렬</span><span class="seg"><span class="on" data-s="rec">추천순</span><span data-s="rate">평점순</span></span><span class="sep"></span><span class="chip" data-f="kid">아이 추천</span><span class="chip" data-f="group">8명 자리</span></div></div>
+<section class="ov fold" id="ov" aria-label="한눈에 보기"><div class="ov-hd"><div><div class="ov-k">AT A GLANCE</div><h2>한눈에 보기</h2><p id="ovsub">누르면 해당 식당 카드로 이동해요</p></div></div><ol class="ov-list" id="ovlist"></ol><button type="button" class="ov-more" id="ovmore"></button></section>
 <div class="count" id="count"></div><div class="list" id="list"></div>
 <footer>출처: 마크이즈 시즈오카 공식 매장 정보, 각 가게 공식 홈페이지, 타베로그, 야후 지도(사용자가 올린 메뉴·사진·후기). 사진 아래에 출처를 적었어요. 사용자 게시 가격은 올린 시점에 따라 지금과 다를 수 있어요. 구글 평점은 각 가게 구글 지도 페이지 기준(10/16). 각 카드의 구글 지도 버튼으로 바로 보실 수 있어요.</footer>
 <script src="data.js"></script>
@@ -105,7 +133,28 @@ function card(s,i){
  <div class="links"><a href="${s.gmap}" target="_blank" rel="noopener">구글 지도</a><a class="l2" href="${s.official}" target="_blank" rel="noopener">마크이즈 공식</a>${s.hp&&s.hp!==s.official?`<a class="l2" href="${s.hp}" target="_blank" rel="noopener">가게 홈페이지</a>`:''}</div></div></div>`}
 function draw(){let L=S.filter(s=>(!st.type||s.cat===st.type)&&(!st.kid||s.kids>=3)&&(!st.group||s.group>=3)&&(!st.floor||s.floor.startsWith(st.floor)));
  const f={rec:(a,b)=>score(b)-score(a),rate:(a,b)=>(num(b.tabelog)||0)-(num(a.tabelog)||0)||num(b.yahoo)-num(a.yahoo),cheap:(a,b)=>(a.price||9e9)-(b.price||9e9),exp:(a,b)=>(b.price||-1)-(a.price||-1)}[st.sort];
- L.sort(f);$('#count').textContent=`${L.length}곳 · 카드를 누르면 자세히 펼쳐져요`;$('#list').innerHTML=L.map(card).join('')}
+ L.sort(f);$('#count').textContent=`${L.length}곳 · 카드를 누르면 자세히 펼쳐져요`;$('#list').innerHTML=L.map(card).join('');ov(L)}
+/* 한눈에 보기: 지금 카드 목록과 같은 순서·같은 목록 */
+function thumbOf(s){return s.photos[0]?`img/${s.photos[0]}`:(s.menu.find(x=>x.img)?'img/'+s.menu.find(x=>x.img).img:'')}
+function ov(L){const rate=st.sort==='rate';
+ $('#ovlist').innerHTML=L.length?L.map((s,i)=>{const ph=thumbOf(s);const v=rate?num(s.tabelog):num(s.google);
+  return `<li><a class="ov-i" href="#c${s.id}" data-id="${s.id}" style="--c:${COL[s.cat]}"><span class="rn">${i+1}</span>${ph?`<img src="${ph}" alt="" loading="lazy">`:'<span class="ni"></span>'}<span class="nm">${s.ko}<small>${s.type} · ${s.floor}${s.kids>=3?' · 👶':''}${s.group>=3?' · 8명 자리':''}</small></span>${v?`<span class="sc">${v}<em>${rate?'타베로그':'구글 ★'}</em></span>`:`<span class="sc no">${rate?'타베로그<br>점수 없음':'-'}</span>`}</a></li>`}).join(''):'';
+ if(!L.length)$('#ovlist').innerHTML='<li class="ov-empty">조건에 맞는 식당이 없어요</li>';
+ $('#ovsub').textContent=`${L.length}곳 · ${rate?'오른쪽: 타베로그 점수':'오른쪽: 구글 평점'} · 누르면 카드로 이동`;
+ const more=$('#ovmore'),fold=$('#ov').classList.contains('fold');more.hidden=L.length<=5;more.textContent=fold?`전체 ${L.length}곳 펼치기 ▾`:'접기 ▴'}
+$('#ovmore').onclick=()=>{const f=$('#ov').classList.toggle('fold');$('#ovmore').textContent=f?`전체 ${document.querySelectorAll('#ovlist .ov-i').length}곳 펼치기 ▾`:'접기 ▴';if(f)$('#ov').scrollIntoView({block:'nearest'})};
+function barH(){return Math.ceil($('.bar').getBoundingClientRect().height)}
+function setBarH(){document.documentElement.style.setProperty('--barh',(barH()+12)+'px')}
+setBarH();addEventListener('resize',setBarH);
+$('#ovlist').addEventListener('click',e=>{const a=e.target.closest('.ov-i');if(!a)return;e.preventDefault();
+ const c=document.getElementById('c'+a.dataset.id);if(!c)return;c.style.setProperty('--c',COL[S.find(s=>s.id===a.dataset.id).cat]);
+ const y=c.getBoundingClientRect().top+scrollY-barH()-12;const smooth=!matchMedia('(prefers-reduced-motion: reduce)').matches;
+ scrollTo({top:Math.max(0,y),behavior:smooth?'smooth':'auto'});
+ c.classList.remove('flash');void c.offsetWidth;settle(()=>{const d=c.getBoundingClientRect().top-barH()-12;if(Math.abs(d)>4&&innerHeight+scrollY<document.documentElement.scrollHeight-2)scrollTo({top:scrollY+d});c.classList.add('flash');setTimeout(()=>c.classList.remove('flash'),1900)})});
+function settle(cb){let last=-1,same=0,t0=performance.now();(function k(){const y=scrollY;same=y===last?same+1:0;last=y;if(same>=4||performance.now()-t0>2500)cb();else requestAnimationFrame(k)})()}
+const tt=document.createElement('button');tt.type='button';tt.className='totop';tt.textContent='↑ 한눈에 보기';document.body.appendChild(tt);
+tt.onclick=()=>{scrollTo({top:Math.max(0,$('#ov').getBoundingClientRect().top+scrollY-barH()-4),behavior:'smooth'})};
+addEventListener('scroll',()=>{tt.classList.toggle('show',$('#ov').getBoundingClientRect().bottom<0)},{passive:true});
 draw();
 const _o=new URLSearchParams(location.search).get('open');if(_o){const c=document.querySelector('#c'+_o);if(c){c.classList.add('open');c.parentNode.prepend(c);if(location.search.includes('shot'))document.querySelectorAll('header,.tips').forEach(e=>e.remove())}}
 </script></body></html>
