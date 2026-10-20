@@ -3,6 +3,7 @@
 <title>마크이즈 시즈오카 식당 안내</title>
 <meta name="robots" content="noindex">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;600&display=swap">
 <style>
 :root{--bg:#f5f5f3;--card:#fff;--ink:#1d1d1f;--sub:#6e6e73;--acc:#c2410c;--kid:#15803d;--line:#e5e5e2;--soft:#f2f2ef}
 *{box-sizing:border-box}html{-webkit-text-size-adjust:100%}body{margin:0;font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;letter-spacing:-.01em;padding-bottom:env(safe-area-inset-bottom)}
@@ -102,15 +103,106 @@ header{text-align:center}header h1{font-size:clamp(25px,7.4vw,32px);word-break:k
 .cg>span[style*="--c"]{--bd:var(--c);--fg:var(--c)}
 .cg>span.on{background:var(--c);border-color:var(--c);color:#fff;box-shadow:0 2px 8px color-mix(in srgb,var(--c) 35%,transparent)}
 @media(max-width:480px){.cg{gap:2px}.cg>span{padding:0 6px;font-size:12px;height:28px;letter-spacing:-.03em}}@media(max-width:385px){.cg>span{padding:0 4px;font-size:11.5px}}
-/* 헤더 배경 = 사타 고개에서 본 후지산과 스루가만 (퍼블릭 도메인, 출처 표기 불필요) — 후지산 꼭대기는 위쪽에 보이게 맞춤, 글자 쪽은 짙은 그라데이션 (2026-10-21) */
-header{padding:58px 22px 14px;background:linear-gradient(180deg,rgba(11,17,27,0) 0%,rgba(11,17,27,.12) 20%,rgba(11,17,27,.62) 36%,rgba(11,17,27,.84) 60%,rgba(11,17,27,.92) 100%),url(img/hero_fuji.jpg) 38% 0%/cover #1b2533}
-header h1{text-shadow:0 1px 10px rgba(0,0,0,.45)}header p{color:rgba(255,255,255,.92)}
-.sum{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.4)}
-@media(min-width:640px){header{padding-top:72px;background:linear-gradient(180deg,rgba(11,17,27,0) 0%,rgba(11,17,27,.08) 18%,rgba(11,17,27,.38) 34%,rgba(11,17,27,.74) 54%,rgba(11,17,27,.9) 100%),url(img/hero_fuji.jpg) 38% 18%/cover #1b2533}}
+/* 디자인 B6 (2026-10-21 배포) */
+/* 정제 시안 공통 (2026-10-21): 크림 종이·명조 제목·황토색 포인트는 B 그대로, 선은 1px 머리카락 선, 그림자 없음, 숫자는 같은 폭(tabular) */
+:root{--bg:#f8f4ec;--card:#fffdf9;--ink:#211b15;--sub:#695d50;--mute:#766a5d;--acc:#86601d;--kid:#2b6a43;--line:#e6ddcf;--hair:#d6cbbb;--soft:#f3ede3}
+body{background:var(--bg);color:var(--ink)}
+h1,.t h2,.ov-hd h2,h3{font-family:"Noto Serif KR",serif;font-weight:600}
+/* 헤더 */
+header,header.ph{text-align:left;color:var(--ink);background:var(--bg);border-radius:0;max-width:640px;margin:0 auto;padding:44px 24px 26px;border-bottom:1px solid var(--line)}
+@media(min-width:640px){header{padding-top:64px;background:var(--bg)}}
+.kick{font-size:10.5px;font-weight:600;letter-spacing:.22em;line-height:16px;color:var(--acc);margin:0 0 14px}
+.kick i{font-style:normal;padding:0 .25em}
+header h1{font-family:"Noto Serif KR",serif;font-weight:600;font-size:30px;line-height:40px;letter-spacing:-.03em;color:var(--ink);text-shadow:none;margin:0 0 20px;word-break:keep-all}
+@media(min-width:640px){header h1{font-size:38px;line-height:50px}}
+.hmeta{display:flex;align-items:center;flex-wrap:wrap;gap:8px 12px;margin:0}
+.hmeta .sum{display:inline-flex;align-items:center;height:28px;padding:0 12px;margin:0;border:1px solid var(--acc);border-radius:999px;background:transparent;color:var(--acc);font-size:12.5px;font-weight:600;line-height:20px;letter-spacing:0;backdrop-filter:none;-webkit-backdrop-filter:none}
+.hmeta p{margin:0;font-size:13px;line-height:20px;color:var(--sub);font-variant-numeric:tabular-nums;position:relative;top:var(--pnudge,0px)}
+.hmeta .hd{color:var(--mute)}
+/* 필터 */
+.bar{background:rgba(248,244,236,.94);border-bottom:1px solid var(--line);padding:12px 16px 11px}
+.lab{font-size:11px;font-weight:600;letter-spacing:.04em;color:var(--sub);width:28px;line-height:16px}
+.cg>span{--bd:var(--hair);--fg:var(--ink);background:transparent;font-weight:500;box-shadow:none;letter-spacing:-.01em}
+.cg>span[style*="--c"]{--bd:color-mix(in srgb,var(--c) 38%,var(--bg));--fg:var(--c)}
+.cg>span.on{background:var(--c);border-color:var(--c);color:#fff;box-shadow:none;font-weight:600}
+.cg>span[data-s].on,.cg>span[data-fl].on,.cg>span[data-f].on,.cg>span[data-t=""].on{--c:var(--ink)}
+.cg.picked>span:not(.on){--bd:var(--line);--fg:var(--mute);border-color:var(--line);color:var(--mute);background:transparent}
+@media(max-width:480px){.cg{gap:3px}.cg>span{padding:0 6px;font-size:12px;height:28px;letter-spacing:-.03em}}@media(max-width:385px){.cg>span{padding:0 6px;font-size:11.5px}}
+.sep{background:var(--hair);height:16px}
+/* 한눈에 보기 */
+.ov{padding:30px 16px 4px}
+.ov-hd{margin:0 4px 14px}
+.ov-k{font-size:10.5px;font-weight:600;letter-spacing:.22em;line-height:16px;color:var(--acc)}
+.ov-hd h2{font-size:22px;line-height:30px;font-weight:600;margin:6px 0 0;letter-spacing:-.025em}
+.ov-hd p{font-size:12.5px;line-height:18px;color:var(--sub);margin:4px 0 0}
+.ov-i{background:var(--card);border:1px solid var(--line);border-radius:10px;height:64px;padding:0 14px 0 4px;gap:12px}
+.ov-i .rn{width:28px;font-family:"Noto Serif KR",serif;font-weight:600;font-size:16px;line-height:20px;font-variant-numeric:tabular-nums}
+.ov-i img,.ov-i .ni{width:52px;height:40px;border-radius:4px}
+.ov-i .nm{line-height:20px}.ov-i .nt{font-size:15px;line-height:20px;font-weight:600;letter-spacing:-.015em}
+.ov-i .nm small{font-size:12px;line-height:16px;margin-top:2px;font-weight:400;color:var(--sub)}
+.ov-i .sc{font-size:15px;line-height:20px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--ink);min-width:44px}
+.ov-i .sc em{font-size:10.5px;line-height:16px;margin-top:2px;font-weight:500;color:var(--sub);letter-spacing:.02em}
+.ov-i .sc.no{color:var(--mute)}
+@media(hover:hover){.ov-i:hover{box-shadow:none;border-color:var(--hair)}}
+.ov-more{height:44px;padding:0 2px 0 0;margin-top:10px;border:1px solid var(--line);border-radius:10px;background:transparent;color:var(--ink);font-size:13px;font-weight:600;line-height:20px}
+@media(max-width:719px){.ov-more:not([hidden]){display:flex;align-items:center;justify-content:center;gap:7px}}
+.ov-more::after{content:"";width:5.5px;height:5.5px;border:solid currentColor;border-width:0 1.3px 1.3px 0;transform:translateY(var(--mv,-2px)) rotate(45deg)}
+.ov:not(.fold) .ov-more::after{transform:translateY(var(--mvo,1.5px)) rotate(-135deg)}
+.count{font-size:12.5px;line-height:18px;color:var(--sub);padding:24px 20px 8px}
+/* 카드 */
+.list{gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:none}
+.thumb{height:196px;width:100%!important;margin:0;border-radius:0!important}
+.t{padding:16px 18px 12px}
+.cat{display:inline-flex;align-items:center;gap:6px;margin:0 0 8px;padding:0;border:0;border-radius:0;background:none;font-size:11px;line-height:16px;font-weight:600;letter-spacing:.06em;color:var(--c)}
+.cat::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:var(--c)}
+.t h2{font-size:19px;line-height:27px;font-weight:600;letter-spacing:-.02em;margin:0 0 4px}
+.t .jp{font-family:"Pretendard Variable",Pretendard,sans-serif;font-size:12px;line-height:18px;color:var(--sub);margin-top:2px}
+.meta{font-size:13px;line-height:20px;color:var(--sub);margin:1px 0}
+.badges{gap:5px;margin-top:12px}
+.b{display:inline-flex;align-items:center;height:24px;padding:0 7px;border:1px solid var(--line);border-radius:999px;background:transparent;color:#4d4236;font-size:11px;letter-spacing:0;line-height:16px;font-weight:500;font-variant-numeric:tabular-nums}
+.b.kid{background:transparent;border-color:color-mix(in srgb,var(--kid) 35%,#fff);color:var(--kid);font-weight:600}
+.tg{color:var(--ink);font-size:12.5px;font-weight:600;line-height:20px}
+.tg::after{width:5.5px;height:5.5px;border-width:0 1.3px 1.3px 0;transform:translateY(var(--tv,-2px)) rotate(45deg)}.card.open .tg::after{transform:translateY(var(--tvo,1.5px)) rotate(-135deg)}
+.d{border-top:1px solid var(--line)}
+td{border-bottom-color:var(--line)}td:first-child{color:var(--sub)}
+.rv{background:var(--soft)}
+.d .s,.mi .s{color:var(--mute)!important}.mi .ph{color:var(--mute)}
+.mi img,.mi .ph{border-radius:6px}
+h3{font-size:15px;font-weight:600}
+.links a{background:var(--ink);border-radius:10px;font-weight:600}
+.links a.l2{background:transparent;color:var(--ink);border:1px solid var(--hair)}
+.totop{background:var(--ink);font-size:12.5px;font-weight:600;line-height:20px;padding:10px 15px;box-shadow:0 4px 14px rgba(33,27,21,.18)}
+footer{color:var(--sub);border-top:1px solid var(--line);padding-top:18px}
+@keyframes cflash{0%,55%{box-shadow:0 0 0 2px var(--c,#86601d)}100%{box-shadow:none}}
+/* 픽셀 보정 (실측 기준): 꺾쇠는 회전한 사각형이라 글자 가운데보다 아래로 그려져 위로 올림 */
+:root{--mv:-3px;--tv:-3.3px;--tvo:2.8px}
+.ov-i .sc em{position:relative;top:.5px}
+
+/* 디자인 B6 — 미니멀 에디토리얼: 상자·테두리 거의 없이 가는 선과 여백만으로 나눔, 황토색은 머리글 한 곳만 */
+header{border-bottom:0;padding-bottom:22px}
+.hr{border:0;height:1px;background:var(--ink);opacity:.85;margin:0 0 16px;width:100%}
+.hmeta .sum{border-color:var(--ink);color:var(--ink)}
+.bar{border-top:1px solid var(--line)}
+.cg>span{border-radius:4px}
+.ov-list{gap:0;border-top:1px solid var(--ink)}
+.ov-list li{border-bottom:1px solid var(--line)}
+.ov-i{background:transparent;border:0;border-radius:0;height:62px;padding:0 4px 0 0}
+.ov-i .rn{width:30px;text-align:left;padding-left:2px;font-size:18px}
+.ov-i img,.ov-i .ni{width:44px;height:44px;border-radius:2px}
+.ov-more{border:0;border-bottom:1px solid var(--line);border-radius:0;margin-top:0}
+.list{gap:0;padding-top:4px}
+.card{background:transparent;border:0;border-top:1px solid var(--ink);border-radius:0;overflow:visible}
+.top{padding:20px 0 0}
+.thumb{border-radius:4px!important;height:210px}
+.t{padding:16px 2px 8px}
+.d{padding:16px 2px;border-top:1px solid var(--line)}
+.tg{margin-right:-6px}
+.card:last-child{border-bottom:1px solid var(--line)}
+:root{--mvo:2.5px}
+.ov-i .rn{position:relative;top:-1px}
 </style></head><body>
-<header><h1>마크이즈 시즈오카 식당 안내</h1>
-<div class="sum">11/14(토) 점심</div>
-<p>100엔 ≈ 850원 (10/16 기준)</p></header>
+<header><div class="kick">MARK IS SHIZUOKA <i>·</i> LUNCH GUIDE</div><h1>마크이즈 시즈오카<br>식당 안내</h1><hr class="hr"><div class="hmeta"><div class="sum">11/14(토) 점심</div><p>100엔 ≈ 850원 <span class="hd">(10/16 기준)</span></p></div></header>
 
 <div class="bar">
 <div class="row"><span class="lab">종류</span><span id="types" class="cg"></span></div>
@@ -125,7 +217,7 @@ const S=window.SHOPS,$=s=>document.querySelector(s);let st={type:'',kid:false,gr
 const DESSERT=['카페','카페·빵','빵','크레이프·디저트','아이스크림·디저트'];
 const CAT={'초밥':'일식','닭요리·덮밥':'일식','일식·메밀국수·해산물덮밥':'일식','라면·볶음밥':'일식','우동':'일식','야키소바·다코야키':'일식','돈가스·덮밥':'일식','한식':'한식','중식·군만두':'중식','함박·스테이크':'양식','피자·뷔페':'양식','오므라이스·양식':'양식','파스타':'양식','햄버거':'양식','인도·네팔 카레':'양식'};
 S.forEach(s=>s.cat=CAT[s.type]||(DESSERT.includes(s.type)?'디저트·카페':'양식'));
-const COL={'일식':'#c2410c','한식':'#be123c','중식':'#047857','양식':'#1d4ed8','디저트·카페':'#7c3aed'};
+/* 종류 색: 뜻(일식 주황·한식 빨강·중식 초록·양식 파랑·디저트·카페 보라)은 그대로, 채도만 낮춘 차분한 톤 */const COL={'일식':'#a64b22','한식':'#9b2f45','중식':'#28684f','양식':'#2f5288','디저트·카페':'#674a96'};
 const types=['일식','한식','중식','양식','디저트·카페'].filter(t=>S.some(s=>s.cat===t));
 $('#types').innerHTML='<span class="on" data-t="">전체</span>'+types.map(t=>`<span data-t="${t}" style="--c:${COL[t]}">${t}(${S.filter(s=>s.cat===t).length})</span>`).join('');
 document.querySelectorAll('[data-t]').forEach(c=>c.onclick=()=>{st.type=c.dataset.t;document.querySelectorAll('[data-t]').forEach(x=>x.classList.toggle('on',x===c));$('#types').classList.toggle('picked',!!st.type);draw()});
@@ -172,8 +264,8 @@ function ov(L){const rate=st.sort==='rate';
   return `<li><a class="ov-i" href="#c${s.id}" data-id="${s.id}" style="--c:${COL[s.cat]}"><span class="rn">${i+1}</span>${ph?`<img src="${ph}" alt="" loading="lazy">`:'<span class="ni"></span>'}<span class="nm"><b class="nt">${tname(s)}</b><small>${s.type.split('·')[0]} · ${s.floor}${s.kids>=3?' · 👶':''}</small></span><span class="sc${v?'':' no'}">${v||'없음'}<em>${rate?'타베로그':'구글평점'}</em></span></a></li>`}).join(''):'';
  if(!L.length)$('#ovlist').innerHTML='<li class="ov-empty">조건에 맞는 식당이 없어요</li>';
  $('#ovsub').textContent=`${L.length}곳 · ${rate?'오른쪽: 타베로그 점수':'오른쪽: 구글 평점'} · 누르면 카드로 이동`;
- const more=$('#ovmore'),fold=$('#ov').classList.contains('fold');more.hidden=L.length<=5;more.textContent=fold?`전체 ${L.length}곳 펼치기 ▾`:'접기 ▴'}
-$('#ovmore').onclick=()=>{const f=$('#ov').classList.toggle('fold');$('#ovmore').textContent=f?`전체 ${document.querySelectorAll('#ovlist .ov-i').length}곳 펼치기 ▾`:'접기 ▴';if(f)$('#ov').scrollIntoView({block:'nearest'})};
+ const more=$('#ovmore'),fold=$('#ov').classList.contains('fold');more.hidden=L.length<=5;more.textContent=fold?`전체 ${L.length}곳 펼치기`:'접기'}
+$('#ovmore').onclick=()=>{const f=$('#ov').classList.toggle('fold');$('#ovmore').textContent=f?`전체 ${document.querySelectorAll('#ovlist .ov-i').length}곳 펼치기`:'접기';if(f)$('#ov').scrollIntoView({block:'nearest'})};
 function barH(){return Math.ceil($('.bar').getBoundingClientRect().height)}
 function setBarH(){document.documentElement.style.setProperty('--barh',(barH()+12)+'px')}
 setBarH();addEventListener('resize',setBarH);
