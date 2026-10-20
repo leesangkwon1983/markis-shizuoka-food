@@ -72,6 +72,7 @@ header{text-align:center}header h1{font-size:clamp(25px,7.4vw,32px);word-break:k
 .ov-i .sc em{display:block;font-style:normal;font-size:10.5px;font-weight:700;color:var(--sub);letter-spacing:0}
 .ov-i .sc.no{color:#aaa}
 .ov-more{display:block;width:100%;margin:8px 0 0;padding:11px;border:1px dashed #cfcfca;border-radius:14px;background:transparent;font:inherit;font-size:14px;font-weight:600;color:var(--ink);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.ov-more[hidden]{display:none} /* 5곳 이하면 펼치기 버튼 숨김 (2026-10-21) */
 .ov.fold .ov-list li:nth-child(n+6){display:none}
 @media(min-width:720px){.ov.fold .ov-list li:nth-child(n+6){display:block}.ov-more{display:none}}
 .ov-empty{font-size:14px;color:var(--sub);padding:10px 2px}
