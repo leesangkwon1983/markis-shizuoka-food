@@ -81,20 +81,24 @@ header{text-align:center}header h1{font-size:clamp(25px,7.4vw,32px);word-break:k
 .totop{position:fixed;right:14px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:6;border:none;border-radius:999px;background:var(--ink);color:#fff;font:inherit;font-size:13px;font-weight:700;padding:10px 14px;box-shadow:0 6px 18px rgba(0,0,0,.22);cursor:pointer;opacity:0;transform:translateY(10px);pointer-events:none;transition:all .2s}
 .totop.show{opacity:1;transform:none;pointer-events:auto}
 @media(prefers-reduced-motion:reduce){.card.flash{animation-duration:2.4s}.ov-i,.totop{transition:none}}
-/* 종류 칩: 한눈에 보기 번호·카드 종류 배지와 같은 색 (2026-10-21) */
-#types{background:none;padding:0;gap:5px;flex:1 1 0;min-width:0;flex-wrap:wrap}
-#types span{--c:#1d1d1f;box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;height:30px;padding:0 10px;border-radius:999px;border:1px solid var(--c);background:#fff;color:var(--c);font-size:13px;font-weight:700;line-height:1;box-shadow:none}
-#types span.on{background:var(--c);color:#fff;box-shadow:0 2px 8px color-mix(in srgb,var(--c) 35%,transparent)}
-@media(max-width:480px){#types{gap:2px}#types span{padding:0 6px;font-size:12px;height:28px;letter-spacing:-.03em}}@media(max-width:385px){#types span{padding:0 4px;font-size:11.5px}}
+/* 필터 칩 네 줄 공통 모양 (2026-10-21): 따로따로 둥근 칩, 같은 크기·모서리·글자·테두리·간격
+   중립(색 뜻 없음): 비선택=흰 바탕+회색 테두리+진한 회색 글자, 선택=검정 채움+흰 글자
+   종류 칩만 한눈에 보기 번호·카드 종류 배지와 같은 색(COL) */
+.cg{flex:1 1 0;min-width:0;display:flex;flex-wrap:wrap;align-items:center;gap:5px}
+.cg.fit{flex:none}
+.cg>span{--c:#1d1d1f;--bd:#86868b;--fg:#3a3a3c;box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;height:30px;padding:0 10px;border-radius:999px;border:1px solid var(--bd);background:#fff;color:var(--fg);font-size:13px;font-weight:700;line-height:1;box-shadow:none;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:all .15s}
+.cg>span[style*="--c"]{--bd:var(--c);--fg:var(--c)}
+.cg>span.on{background:var(--c);border-color:var(--c);color:#fff;box-shadow:0 2px 8px color-mix(in srgb,var(--c) 35%,transparent)}
+@media(max-width:480px){.cg{gap:2px}.cg>span{padding:0 6px;font-size:12px;height:28px;letter-spacing:-.03em}}@media(max-width:385px){.cg>span{padding:0 4px;font-size:11.5px}}
 </style></head><body>
 <header><h1>마크이즈 시즈오카 식당 안내</h1>
 <div class="sum">11/14(토) 점심</div>
 <p>100엔 ≈ 850원 (10/16 기준)</p></header>
 
 <div class="bar">
-<div class="row"><span class="lab">종류</span><span id="types" class="seg"></span></div>
-<div class="row"><span class="lab">위치</span><span id="floors" class="seg"></span></div>
-<div class="row"><span class="lab">정렬</span><span class="seg"><span class="on" data-s="rec">추천순</span><span data-s="rate">평점순</span></span><span class="sep"></span><span class="chip" data-f="kid">아이 추천</span></div></div>
+<div class="row"><span class="lab">종류</span><span id="types" class="cg"></span></div>
+<div class="row"><span class="lab">위치</span><span id="floors" class="cg"></span></div>
+<div class="row"><span class="lab">정렬</span><span id="sorts" class="cg fit"><span class="on" data-s="rec">추천순</span><span data-s="rate">평점순</span></span><span class="sep"></span><span class="cg fit"><span data-f="kid" role="button" aria-pressed="false">아이 추천</span></span></div></div>
 <section class="ov fold" id="ov" aria-label="한눈에 보기"><div class="ov-hd"><div><div class="ov-k">AT A GLANCE</div><h2>한눈에 보기</h2><p id="ovsub">누르면 해당 식당 카드로 이동해요</p></div></div><ol class="ov-list" id="ovlist"></ol><button type="button" class="ov-more" id="ovmore"></button></section>
 <div class="count" id="count"></div><div class="list" id="list"></div>
 <footer>출처: 마크이즈 시즈오카 공식 매장 정보, 각 가게 공식 홈페이지, 타베로그, 야후 지도(사용자가 올린 메뉴·사진·후기). 사진 아래에 출처를 적었어요. 사용자 게시 가격은 올린 시점에 따라 지금과 다를 수 있어요. 구글 평점은 각 가게 구글 지도 페이지 기준(10/16). 각 카드의 구글 지도 버튼으로 바로 보실 수 있어요.</footer>
@@ -104,11 +108,11 @@ const S=window.SHOPS,$=s=>document.querySelector(s);let st={type:'',kid:false,gr
 const DESSERT=['카페','카페·빵','빵','크레이프·디저트','아이스크림·디저트'];
 const CAT={'초밥':'일식','닭요리·덮밥':'일식','일식·메밀국수·해산물덮밥':'일식','라면·볶음밥':'일식','우동':'일식','야키소바·다코야키':'일식','돈가스·덮밥':'일식','한식':'한식','중식·군만두':'중식','함박·스테이크':'양식','피자·뷔페':'양식','오므라이스·양식':'양식','파스타':'양식','햄버거':'양식','인도·네팔 카레':'양식'};
 S.forEach(s=>s.cat=CAT[s.type]||(DESSERT.includes(s.type)?'디저트·카페':'양식'));
-const COL={'일식':'#c2410c','한식':'#be123c','중식':'#b45309','양식':'#1d4ed8','디저트·카페':'#7c3aed'};
+const COL={'일식':'#c2410c','한식':'#be123c','중식':'#047857','양식':'#1d4ed8','디저트·카페':'#7c3aed'};
 const types=['일식','한식','중식','양식','디저트·카페'].filter(t=>S.some(s=>s.cat===t));
 $('#types').innerHTML='<span class="on" data-t="">전체</span>'+types.map(t=>`<span data-t="${t}" style="--c:${COL[t]}">${t}(${S.filter(s=>s.cat===t).length})</span>`).join('');
 document.querySelectorAll('[data-t]').forEach(c=>c.onclick=()=>{st.type=c.dataset.t;document.querySelectorAll('[data-t]').forEach(x=>x.classList.toggle('on',x===c));draw()});
-document.querySelectorAll('[data-f]').forEach(c=>c.onclick=()=>{st[c.dataset.f]=!st[c.dataset.f];c.classList.toggle('on');draw()});
+document.querySelectorAll('[data-f]').forEach(c=>c.onclick=()=>{st[c.dataset.f]=!st[c.dataset.f];c.classList.toggle('on');c.setAttribute('aria-pressed',c.classList.contains('on'));draw()});
 const FL=[['','전체'],['1층','1층 카페'],['3층 식당가','3층 식당가'],['3층 푸드코트','3층 푸드코트']];
 $('#floors').innerHTML=FL.map(([v,l])=>`<span class="${v?'':'on'}" data-fl="${v}">${l}${v?'('+S.filter(s=>s.floor.startsWith(v)).length+')':''}</span>`).join('');
 document.querySelectorAll('[data-fl]').forEach(c=>c.onclick=()=>{st.floor=c.dataset.fl;document.querySelectorAll('[data-fl]').forEach(x=>x.classList.toggle('on',x===c));draw()});document.querySelectorAll('[data-s]').forEach(c=>c.onclick=()=>{st.sort=c.dataset.s;document.querySelectorAll('[data-s]').forEach(x=>x.classList.toggle('on',x===c));draw()});
