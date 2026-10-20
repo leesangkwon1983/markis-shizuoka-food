@@ -82,13 +82,15 @@ header{text-align:center}header h1{font-size:clamp(25px,7.4vw,32px);word-break:k
 .tg .tc,.card.open .tg .to{display:none}.card.open .tg .tc{display:inline}
 .card.open .tg{margin-top:-8px}
 .b{white-space:nowrap}
+/* 떠 있는 「↑ 한눈에 보기」는 왼쪽 아래(카드 펼치기/접기는 오른쪽 아래라 안 겹침), 목록 끝·출처가 버튼에 가리지 않게 아래 여백 (2026-10-21) */
+.list{padding-bottom:calc(72px + env(safe-area-inset-bottom))}footer{padding-bottom:calc(72px + env(safe-area-inset-bottom))}
 .ov.fold .ov-list li:nth-child(n+6){display:none}
 @media(min-width:720px){.ov.fold .ov-list li:nth-child(n+6){display:block}.ov-more{display:none}}
 .ov-empty{font-size:14px;color:var(--sub);padding:10px 2px}
 .card{scroll-margin-top:var(--barh,140px)}
 .card.flash{animation:cflash 1.8s ease-out}
 @keyframes cflash{0%,55%{box-shadow:0 0 0 4px var(--c,#c2410c),0 10px 30px rgba(0,0,0,.14)}100%{box-shadow:0 2px 10px rgba(0,0,0,.05),0 8px 28px rgba(0,0,0,.05)}}
-.totop{position:fixed;right:14px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:6;border:none;border-radius:999px;background:var(--ink);color:#fff;font:inherit;font-size:13px;font-weight:700;padding:10px 14px;box-shadow:0 6px 18px rgba(0,0,0,.22);cursor:pointer;opacity:0;transform:translateY(10px);pointer-events:none;transition:all .2s}
+.totop{position:fixed;left:14px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:6;border:none;border-radius:999px;background:var(--ink);color:#fff;font:inherit;font-size:13px;font-weight:700;padding:10px 14px;box-shadow:0 6px 18px rgba(0,0,0,.22);cursor:pointer;opacity:0;transform:translateY(10px);pointer-events:none;transition:all .2s}
 .totop.show{opacity:1;transform:none;pointer-events:auto}
 @media(prefers-reduced-motion:reduce){.card.flash{animation-duration:2.4s}.ov-i,.totop{transition:none}}
 /* 필터 칩 네 줄 공통 모양 (2026-10-21): 따로따로 둥근 칩, 같은 크기·모서리·글자·테두리·간격
@@ -100,10 +102,16 @@ header{text-align:center}header h1{font-size:clamp(25px,7.4vw,32px);word-break:k
 .cg>span[style*="--c"]{--bd:var(--c);--fg:var(--c)}
 .cg>span.on{background:var(--c);border-color:var(--c);color:#fff;box-shadow:0 2px 8px color-mix(in srgb,var(--c) 35%,transparent)}
 @media(max-width:480px){.cg{gap:2px}.cg>span{padding:0 6px;font-size:12px;height:28px;letter-spacing:-.03em}}@media(max-width:385px){.cg>span{padding:0 4px;font-size:11.5px}}
+/* 헤더 사진: 니혼다이라에서 본 후지산·시미즈항 (Alpsdake, CC BY-SA 4.0) — 높이는 이전 헤더와 비슷하게, 후지산 꼭대기는 위쪽에 보이게 맞춤, 글자 쪽은 짙은 그라데이션 (2026-10-21) */
+header{padding:58px 22px 14px;background:linear-gradient(180deg,rgba(11,17,27,0) 0%,rgba(11,17,27,.12) 20%,rgba(11,17,27,.62) 36%,rgba(11,17,27,.84) 60%,rgba(11,17,27,.92) 100%),url(img/hero_fuji.jpg) 38% 0%/cover #1b2533}
+header h1{text-shadow:0 1px 10px rgba(0,0,0,.45)}header p{color:rgba(255,255,255,.92)}
+.sum{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.4)}
+.hc{margin:8px 0 0;font-size:10.5px;line-height:1.3;color:rgba(255,255,255,.72)}.hc a{color:inherit}
+@media(min-width:640px){header{padding-top:72px;background:linear-gradient(180deg,rgba(11,17,27,0) 0%,rgba(11,17,27,.08) 18%,rgba(11,17,27,.38) 34%,rgba(11,17,27,.74) 54%,rgba(11,17,27,.9) 100%),url(img/hero_fuji.jpg) 38% 2%/cover #1b2533}}
 </style></head><body>
 <header><h1>마크이즈 시즈오카 식당 안내</h1>
 <div class="sum">11/14(토) 점심</div>
-<p>100엔 ≈ 850원 (10/16 기준)</p></header>
+<p>100엔 ≈ 850원 (10/16 기준)</p><div class="hc">사진: 니혼다이라에서 본 후지산 · Alpsdake, CC BY-SA 4.0</div></header>
 
 <div class="bar">
 <div class="row"><span class="lab">종류</span><span id="types" class="cg"></span></div>
@@ -111,7 +119,7 @@ header{text-align:center}header h1{font-size:clamp(25px,7.4vw,32px);word-break:k
 <div class="row"><span class="lab">정렬</span><span id="sorts" class="cg fit picked"><span class="on" data-s="rec">추천순</span><span data-s="rate">평점순</span></span><span class="sep"></span><span class="cg fit"><span data-f="kid" role="button" aria-pressed="false">아이 추천</span></span></div></div>
 <section class="ov fold" id="ov" aria-label="한눈에 보기"><div class="ov-hd"><div><div class="ov-k">AT A GLANCE</div><h2>한눈에 보기</h2><p id="ovsub">누르면 해당 식당 카드로 이동해요</p></div></div><ol class="ov-list" id="ovlist"></ol><button type="button" class="ov-more" id="ovmore"></button></section>
 <div class="count" id="count"></div><div class="list" id="list"></div>
-<footer>출처: 마크이즈 시즈오카 공식 매장 정보, 각 가게 공식 홈페이지, 타베로그, 야후 지도(사용자가 올린 메뉴·사진·후기). 사진 아래에 출처를 적었어요. 사용자 게시 가격은 올린 시점에 따라 지금과 다를 수 있어요. 구글 평점은 각 가게 구글 지도 페이지 기준(10/16). 각 카드의 구글 지도 버튼으로 바로 보실 수 있어요.</footer>
+<footer>출처: 마크이즈 시즈오카 공식 매장 정보, 각 가게 공식 홈페이지, 타베로그, 야후 지도(사용자가 올린 메뉴·사진·후기). 사진 아래에 출처를 적었어요. 사용자 게시 가격은 올린 시점에 따라 지금과 다를 수 있어요. 구글 평점은 각 가게 구글 지도 페이지 기준(10/16). 각 카드의 구글 지도 버튼으로 바로 보실 수 있어요. 맨 위 사진: 「Mount Fuji and Port of Shimizu from Nihondaira」 Alpsdake, <a href="https://commons.wikimedia.org/wiki/File:Mount_Fuji_and_Port_of_Shimizu_from_Nihondaira.jpg">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.ko">CC BY-SA 4.0</a> (가로 1200px로 줄임).</footer>
 <script src="data.js"></script>
 <script>
 const S=window.SHOPS,$=s=>document.querySelector(s);let st={type:'',kid:false,group:false,floor:'',sort:'rec'};
@@ -140,7 +148,7 @@ function card(s,i){
  <div class="t"><span class="cat" style="--c:${COL[s.cat]}">${s.cat}</span><h2>${s.ko} <span class="jp">(${s.jp})</span></h2>
  <div class="meta">${s.type} · ${s.floor}</div>
  <div class="meta">${s.price?'대표 '+s.price.toLocaleString()+'엔 ('+won(Math.round(s.price*8.5/100)*100)+')':''}</div>
- <div class="badges">${s.kids>=3?'<span class="b kid">👶 아이 추천</span>':''}${s.group>=3?'<span class="b g">8명 한자리 쉬움</span>':''}
+ <div class="badges">${s.kids>=3?'<span class="b kid">👶 아이 추천</span>':''}
  ${num(s.tabelog)?`<span class="b">타베로그 ${num(s.tabelog)}</span>`:''}${num(s.yahoo)?`<span class="b">야후 ${num(s.yahoo)}</span>`:''}${num(s.google)?`<span class="b">구글평점 ${num(s.google)}</span>`:''}</div></div></div>
  <div class="d">${s.photos.length>1?`<div class="gal">${s.photos.map(p=>`<img loading="lazy" src="img/${p}">`).join('')}</div><div class="s" style="font-size:10.5px;color:#999;margin:-6px 0 8px">매장 사진: 마크이즈 공식</div>`:''}
  <table><tr><td>영업시간</td><td>${s.hours}</td></tr>${s.resv&&s.resv!=='-'?`<tr><td>예약</td><td>${NA(s.resv)}</td></tr>`:''}${s.seats&&s.seats!=='-'?`<tr><td>좌석</td><td>${NA(s.seats)}</td></tr>`:''}
